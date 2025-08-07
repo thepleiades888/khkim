@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>자기소개</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #ffe6f0; /* 연한 핑크색 배경 */
+      color: #000; /* 검은 글씨 */
+      margin: 40px;
+      transition: background-color 0.3s, color 0.3s;
+      text-align: center; /* 본문 중앙 정렬 */
+    }
+    .dark-mode {
+      background-color: #121212;
+      color: #f2f2f2;
+    }
+    .container {
+      background-color: white; /* 하얀 바탕 */
+      padding: 30px;
+      border-radius: 10px;
+      max-width: 600px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      transition: background-color 0.3s, color 0.3s;
+      text-align: center; /* 본문 내부 중앙 정렬 */
+    }
+    .dark-mode .container {
+      background-color: #1e1e1e;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    .character {
+      margin-top: 20px;
+    }
+    .character img {
+      max-width: 100%;
+      height: auto;
+    }
+    .caption {
+      margin-top: 5px;
+      font-size: 14px;
+      color: #555;
+    }
+    .dark-mode .caption {
+      color: #ccc;
+    }
+    .info {
+      margin-top: 20px;
+      text-align: center; /* 정보도 중앙 정렬 */
+    }
+    .info p {
+      font-size: 18px;
+      line-height: 1.6;
+      margin: 8px 0;
+    }
+    .button-group {
+      margin-top: 30px;
+      display: flex;
+      justify-content: center; /* 가로 중앙 정렬 */
+      gap: 10px;
+      flex-wrap: nowrap; /* 한 줄로 유지 */
+    }
+    button {
+      width: 120px;        /* 모든 버튼 동일 너비 */
+      padding: 10px 0;     /* 세로 패딩 조절 */
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      text-align: center;  /* 텍스트 중앙 정렬 */
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    /* 각 버튼별 색상은 그대로 유지 */
+    .english-btn {
+      background-color: #007BFF;
+    }
+    .english-btn:hover {
+      background-color: #0069d9;
+    }
+    .dark-btn {
+      background-color: #333;
+    }
+    .dark-btn:hover {
+      background-color: #444;
+    }
+    .light-btn {
+      background-color: #999;
+    }
+    .light-btn:hover {
+      background-color: #bbb;
+    }
+    .guestbook {
+      margin-top: 40px;
+      text-align: center; /* 방명록도 중앙 정렬 */
+    }
+    .guestbook input, .guestbook textarea {
+      width: 100%;
+      max-width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+    .dark-mode .guestbook input,
+    .dark-mode .guestbook textarea {
+      background-color: #333;
+      color: white;
+      border: 1px solid #666;
+    }
+    .guestbook-messages {
+      margin-top: 20px;
+      padding-left: 10px;
+      text-align: left; /* 메시지 텍스트는 왼쪽 정렬 유지 */
+    }
+    .guestbook-message {
+      margin-bottom: 15px;
+      border-bottom: 1px dashed #ccc;
+      padding-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 id="title">안녕하세요 김경현 입니다!!</h1>
+    <div class="character">
+      <img src="https://shop-phinf.pstatic.net/20250729_157/1753746891631WHglG_JPEG/2561047275080113_1536057633.jpg" alt="국립공원 캐릭터 반달이와 꼬미" />
+      <div class="caption" id="caption">국립공원 캐릭터 ‘반달이 & 꼬미’</div>
+    </div>
+    <div class="info">
+      <p><strong id="name-label">이름:</strong> <span id="name">김경현</span></p>
+      <p><strong id="hobby-label">취미:</strong> <span id="hobby">여행, 등산</span></p>
+      <p><strong id="email-label">이메일:</strong> <span id="email">thepleiades@gmail.com</span></p>
+    </div>
+    <div class="button-group">
+      <button id="greet-btn" onclick="sayHello()">인사하기</button>
+      <button id="lang-btn" class="english-btn" onclick="toggleLanguage()">English</button>
+      <button class="dark-btn" onclick="enableDarkMode()">다크모드</button>
+      <button class="light-btn" onclick="disableDarkMode()">라이트모드</button>
+    </div>
+
+    <div class="guestbook">
+      <h2 id="guestbook-title">방명록</h2>
+      <input type="text" id="guestName" placeholder="이름을 입력하세요" />
+      <textarea id="guestMessage" rows="4" placeholder="메시지를 남겨주세요"></textarea>
+      <button onclick="submitMessage()" id="submit-msg-btn">남기기</button>
+      <div class="guestbook-messages" id="guestbookMessages"></div>
+    </div>
+  </div>
+
+  <script>
+    let isEnglish = false;
+
+    function sayHello() {
+      alert(isEnglish ? "Hello!!" : "안녕하세요!!");
+    }
+
+    function toggleLanguage() {
+      isEnglish = !isEnglish;
+
+      if(isEnglish) {
+        // 영어로 변경
+        document.getElementById("title").textContent = "Hello! I am Kyonghyon Kim!!";
+        document.getElementById("caption").textContent = "National Park Characters 'Bandari & Kkomi'";
+        document.getElementById("name-label").textContent = "Name:";
+        document.getElementById("hobby-label").textContent = "Hobbies:";
+        document.getElementById("hobby").textContent = "Traveling, Hiking";
+        document.getElementById("email-label").textContent = "Email:";
+        document.getElementById("greet-btn").textContent = "Greet";
+        document.getElementById("lang-btn").textContent = "한국어";
+        document.getElementById("guestbook-title").textContent = "Guestbook";
+        document.getElementById("guestName").placeholder = "Enter your name";
+        document.getElementById("guestMessage").placeholder = "Leave a message";
+        document.getElementById("submit-msg-btn").textContent = "Submit";
+      } else {
+        // 한국어로 변경
+        document.getElementById("title").textContent = "안녕하세요 김경현 입니다!!";
+        document.getElementById("caption").textContent = "국립공원 캐릭터 ‘반달이 & 꼬미’";
+        document.getElementById("name-label").textContent = "이름:";
+        document.getElementById("hobby-label").textContent = "취미:";
+        document.getElementById("hobby").textContent = "여행, 등산";
+        document.getElementById("email-label").textContent = "이메일:";
+        document.getElementById("greet-btn").textContent = "인사하기";
+        document.getElementById("lang-btn").textContent = "English";
+        document.getElementById("guestbook-title").textContent = "방명록";
+        document.getElementById("guestName").placeholder = "이름을 입력하세요";
+        document.getElementById("guestMessage").placeholder = "메시지를 남겨주세요";
+        document.getElementById("submit-msg-btn").textContent = "남기기";
+      }
+    }
+
+    function enableDarkMode() {
+      document.body.classList.add("dark-mode");
+    }
+
+    function disableDarkMode() {
+      document.body.classList.remove("dark-mode");
+    }
+
+    function submitMessage() {
+      const name = document.getElementById("guestName").value.trim();
+      const message = document.getElementById("guestMessage").value.trim();
+      const messageBox = document.getElementById("guestbookMessages");
+
+      if (name && message) {
+        const entry = document.createElement("div");
+        entry.className = "guestbook-message";
+        entry.innerHTML = `<strong>${name}</strong><br>${message}`;
+        messageBox.prepend(entry);
+        document.getElementById("guestName").value = "";
+        document.getElementById("guestMessage").value = "";
+      } else {
+        alert(isEnglish ? "Please enter both your name and message." : "이름과 메시지를 모두 입력해주세요.");
+      }
+    }
+  </script>
+</body>
+</html>
